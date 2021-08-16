@@ -1,0 +1,48 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-2">Filter By:</div>
+    <div class="col-md-4">
+      <input type="text" [(ngModel)]="listFilter" />
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    {{listFilter}}
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-stripped table-border" *ngIf="getTotalProducts()">
+    <thead>
+      <tr>
+        <button
+          class="btn btn-primary text-dark bg-info"
+          (click)="toggleImage()"
+        >
+          {{showImage ? 'Hide' : 'Show'}} Images
+        </button>
+      </tr>
+      <tr>
+        <th *ngIf="showImage">Picture</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let item of getProducts(); let i = index">
+      <td *ngIf="showImage">
+        <img [src]="item.url" width="50px" height="50px" />
+      </td>
+      <td>{{item.id}}</td>
+      <td>{{item.name | convertToHyphen:" "}}</td>
+      <td>{{item.category}}</td>
+      <td>{{item.price | currency}}</td>
+      <td>
+        <app-star [count]="item.rating"></app-star>
+      </td>
+      <td></td>
+    </tr>
+  </table>
+</div>
